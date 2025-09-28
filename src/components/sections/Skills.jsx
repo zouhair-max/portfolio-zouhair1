@@ -1,11 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Skills() {
   const [activeCategory, setActiveCategory] = useState(0);
+  const [isInView, setIsInView] = useState(false);
   const { t, i18n } = useTranslation();
   const currentLanguage = i18n.language;
   const isRTL = currentLanguage === 'ar';
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    const skillsSection = document.getElementById('skills');
+    if (skillsSection) {
+      observer.observe(skillsSection);
+    }
+
+    return () => {
+      if (skillsSection) observer.unobserve(skillsSection);
+    };
+  }, []);
 
   // Icônes SVG modernes
   const icons = {
@@ -115,49 +137,245 @@ export default function Skills() {
     }
   ];
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }
+    }
+  };
+
+  const slideInLeft = {
+    hidden: { opacity: 0, x: isRTL ? 100 : -100 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.7,
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }
+    }
+  };
+
+  const slideInRight = {
+    hidden: { opacity: 0, x: isRTL ? -100 : 100 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.7,
+        ease: [0.25, 0.46, 0.45, 0.94],
+        delay: 0.2
+      }
+    }
+  };
+
+  const categoryButtonVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    },
+    hover: {
+      scale: 1.05,
+      x: isRTL ? -5 : 5,
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 17
+      }
+    },
+    active: {
+      scale: 1.02,
+      x: 0,
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 15
+      }
+    }
+  };
+
+  const skillItemVariants = {
+    hidden: { opacity: 0, x: 30, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        ease: "backOut"
+      }
+    },
+    hover: {
+      scale: 1.02,
+      x: isRTL ? -5 : 5,
+      y: -2,
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 17
+      }
+    }
+  };
+
+  const statsVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    },
+    hover: {
+      scale: 1.05,
+      y: -5,
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 17
+      }
+    }
+  };
+
+  const floatingAnimation = {
+    y: [0, -8, 0],
+    transition: {
+      duration: 3,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }
+  };
+
+  const pulseAnimation = {
+    scale: [1, 1.03, 1],
+    transition: {
+      duration: 2,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }
+  };
+
+  const pageTransition = {
+    hidden: { opacity: 0, x: isRTL ? 50 : -50 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: {
+        duration: 0.5,
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }
+    },
+    exit: { 
+      opacity: 0, 
+      x: isRTL ? -50 : 50,
+      transition: {
+        duration: 0.3,
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }
+    }
+  };
+
   return (
     <div 
-      className="min-h-screen  py-6 px-4 sm:py-8 sm:px-6 lg:py-12 lg:px-8 transition-colors duration-300"
+      id="skills"
+      className="min-h-screen py-6 px-4 sm:py-8 sm:px-6 lg:py-12 lg:px-8 transition-colors duration-300"
       dir={isRTL ? 'rtl' : 'ltr'}
     >
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
-        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-8 sm:mb-12 lg:mb-16"
+        >
+          <motion.h1 
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black dark:text-white mb-3 sm:mb-4"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             {t('skills.title')}
-          </h1>
-          <p className="text-base sm:text-lg lg:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto px-2">
+          </motion.h1>
+          <motion.p 
+            className="text-base sm:text-lg lg:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto px-2"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
             {t('skills.subtitle')}
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* Mobile Categories Switcher (visible on mobile) */}
-        <div className="lg:hidden mb-6">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg dark:shadow-gray-900/50 p-4 sm:p-6 mb-4 border border-gray-200 dark:border-gray-700">
+        <motion.div 
+          className="lg:hidden mb-6"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
+          <motion.div 
+            className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg dark:shadow-gray-900/50 p-4 sm:p-6 mb-4 border border-gray-200 dark:border-gray-700"
+            variants={itemVariants}
+            whileHover={{ y: -5 }}
+            transition={{ duration: 0.3 }}
+          >
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white">
+              <h2 className="text-lg sm:text-xl font-semibold text-black dark:text-white">
                 {t('skills.categoriesTitle')}
               </h2>
-              <span className="text-cyan-600 dark:text-cyan-400">{skillsData[activeCategory].icon}</span>
+              <motion.span 
+                className="text-cyan-600 dark:text-cyan-400"
+                animate={floatingAnimation}
+              >
+                {skillsData[activeCategory].icon}
+              </motion.span>
             </div>
             
             {/* Category Selector for Mobile */}
-            <select 
-              className="w-full p-3 sm:p-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-base sm:text-lg transition-colors duration-200"
+            <motion.select 
+              className="w-full p-3 sm:p-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-base sm:text-lg transition-colors duration-200"
               value={activeCategory}
               onChange={(e) => setActiveCategory(Number(e.target.value))}
+              whileFocus={{ scale: 1.02 }}
             >
               {skillsData.map((category, index) => (
                 <option key={index} value={index} className="bg-white dark:bg-gray-700">
                   {category.title}
                 </option>
               ))}
-            </select>
+            </motion.select>
             
             {/* Progress Dots */}
-            <div className="flex justify-center gap-2 mt-4">
+            <motion.div 
+              className="flex justify-center gap-2 mt-4"
+              variants={containerVariants}
+            >
               {skillsData.map((_, index) => (
-                <button
+                <motion.button
                   key={index}
                   onClick={() => setActiveCategory(index)}
                   className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all ${
@@ -165,24 +383,41 @@ export default function Skills() {
                       ? 'bg-cyan-600 dark:bg-cyan-400 scale-125' 
                       : 'bg-gray-300 dark:bg-gray-600'
                   }`}
+                  whileHover={{ scale: 1.3 }}
+                  whileTap={{ scale: 0.9 }}
                 />
               ))}
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
 
         {/* Main Content */}
-        <div className="flex flex-col lg:flex-row gap-6 sm:gap-8">
+        <motion.div 
+          className="flex flex-col lg:flex-row gap-6 sm:gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
           {/* Categories Navigation (visible on desktop) */}
-          <div className="hidden lg:block lg:w-1/4">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg dark:shadow-gray-900/50 p-6 sticky top-6 border border-gray-200 dark:border-gray-700">
-              <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+          <motion.div 
+            className="hidden lg:block lg:w-1/4"
+            variants={slideInLeft}
+          >
+            <motion.div 
+              className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg dark:shadow-gray-900/50 p-6 sticky top-6 border border-gray-200 dark:border-gray-700"
+              whileHover={{ y: -5 }}
+              transition={{ duration: 0.3 }}
+            >
+              <h2 className="text-lg font-semibold text-black dark:text-white mb-4">
                 {t('skills.categoriesTitle')}
               </h2>
               <div className="space-y-2">
                 {skillsData.map((category, index) => (
-                  <button
+                  <motion.button
                     key={index}
+                    variants={categoryButtonVariants}
+                    whileHover="hover"
+                    whileTap="active"
                     className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-300 flex items-center gap-3 group ${
                       activeCategory === index
                         ? 'bg-gradient-to-r from-cyan-500 to-cyan-600 dark:from-cyan-600 dark:to-cyan-700 text-white shadow-lg transform -translate-y-1 border border-cyan-400 dark:border-cyan-500'
@@ -190,74 +425,131 @@ export default function Skills() {
                     }`}
                     onClick={() => setActiveCategory(index)}
                   >
-                    <span className={`transition-transform duration-300 group-hover:scale-110 ${
-                      activeCategory === index ? 'text-white' : 'text-cyan-600 dark:text-cyan-400'
-                    }`}>
+                    <motion.span 
+                      className={`transition-transform duration-300 group-hover:scale-110 ${
+                        activeCategory === index ? 'text-white' : 'text-cyan-600 dark:text-cyan-400'
+                      }`}
+                      animate={activeCategory === index ? { rotate: 360 } : { rotate: 0 }}
+                      transition={{ duration: 0.5 }}
+                    >
                       {category.icon}
-                    </span>
+                    </motion.span>
                     <span className="font-medium">{category.title}</span>
-                  </button>
+                  </motion.button>
                 ))}
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Skills Display */}
-          <div className="lg:w-3/4">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg dark:shadow-gray-900/50 overflow-hidden border border-gray-200 dark:border-gray-700">
-              <div className="bg-gradient-to-r from-cyan-500 to-cyan-600 dark:from-cyan-600 dark:to-cyan-700 p-4 sm:p-6 text-white border-b border-cyan-400 dark:border-cyan-500">
-                <div className="flex items-center gap-3 sm:gap-4">
-                  <span className="text-2xl sm:text-3xl text-white">
-                    {skillsData[activeCategory].icon}
-                  </span>
-                  <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold leading-tight">
-                    {skillsData[activeCategory].title}
-                  </h2>
-                </div>
-              </div>
-              
-              <div className="p-4 sm:p-6 lg:p-8">
-                <div className="grid gap-3 sm:gap-4 lg:gap-6">
-                  {skillsData[activeCategory].skills.map((skill, index) => (
-                    <div 
-                      key={index}
-                      className="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-gradient-to-r from-gray-50 to-blue-50 dark:from-gray-700 dark:to-gray-800 border border-gray-200 dark:border-gray-600 hover:border-cyan-300 dark:hover:border-cyan-400 transition-all duration-300 hover:shadow-md group"
+          <motion.div 
+            className="lg:w-3/4"
+            variants={slideInRight}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeCategory}
+                variants={pageTransition}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg dark:shadow-gray-900/50 overflow-hidden border border-gray-200 dark:border-gray-700"
+              >
+                <motion.div 
+                  className="bg-gradient-to-r from-cyan-500 to-cyan-600 dark:from-cyan-600 dark:to-cyan-700 p-4 sm:p-6 text-white border-b border-cyan-400 dark:border-cyan-500"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <motion.span 
+                      className="text-2xl sm:text-3xl text-white"
+                      animate={floatingAnimation}
                     >
-                      <div className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mt-0.5 sm:mt-1 group-hover:bg-green-200 dark:group-hover:bg-green-800/50 transition-colors border border-green-200 dark:border-green-700/50">
-                        <svg className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                        </svg>
-                      </div>
-                      <span className="text-gray-700 dark:text-gray-200 text-base sm:text-lg leading-relaxed flex-1">{skill}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+                      {skillsData[activeCategory].icon}
+                    </motion.span>
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold leading-tight">
+                      {skillsData[activeCategory].title}
+                    </h2>
+                  </div>
+                </motion.div>
+                
+                <motion.div 
+                  className="p-4 sm:p-6 lg:p-8"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                >
+                  <div className="grid gap-3 sm:gap-4 lg:gap-6">
+                    {skillsData[activeCategory].skills.map((skill, index) => (
+                      <motion.div 
+                        key={index}
+                        variants={skillItemVariants}
+                        whileHover="hover"
+                        className="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-gradient-to-r from-gray-50 to-blue-50 dark:from-gray-700 dark:to-gray-800 border border-gray-200 dark:border-gray-600 hover:border-cyan-300 dark:hover:border-cyan-400 transition-all duration-300 hover:shadow-md group"
+                      >
+                        <motion.div 
+                          className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mt-0.5 sm:mt-1 group-hover:bg-green-200 dark:group-hover:bg-green-800/50 transition-colors border border-green-200 dark:border-green-700/50"
+                          whileHover={{ scale: 1.2, rotate: 360 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <svg className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        </motion.div>
+                        <span className="text-gray-700 dark:text-gray-200 text-base sm:text-lg leading-relaxed flex-1">{skill}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              </motion.div>
+            </AnimatePresence>
 
             {/* Navigation Buttons */}
-            <div className={`flex justify-between items-center mt-6 px-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <button
+            <motion.div 
+              className={`flex justify-between items-center mt-6 px-2 ${isRTL ? 'flex-row-reverse' : ''}`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+            >
+              <motion.button
                 onClick={() => setActiveCategory(prev => prev > 0 ? prev - 1 : skillsData.length - 1)}
-                className="flex items-center gap-2 px-4 py-3 rounded-lg bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-all duration-300 text-gray-700 dark:text-gray-200 font-medium active:scale-95 text-sm sm:text-base hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-600"
+                whileHover={{ scale: 1.05, x: isRTL ? 5 : -5 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center gap-2 px-4 py-3 rounded-lg bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-all duration-300 text-gray-700 dark:text-gray-200 font-medium text-sm sm:text-base hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-600"
               >
                 {!isRTL && (
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <motion.svg 
+                    className="w-4 h-4 sm:w-5 sm:h-5" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                    whileHover={{ x: -3 }}
+                  >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
+                  </motion.svg>
                 )}
                 {t('skills.previous')}
                 {isRTL && (
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <motion.svg 
+                    className="w-4 h-4 sm:w-5 sm:h-5" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                    whileHover={{ x: 3 }}
+                  >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
+                  </motion.svg>
                 )}
-              </button>
+              </motion.button>
               
               {/* Progress Dots for Desktop */}
-              <div className="hidden sm:flex gap-2">
+              <motion.div 
+                className="hidden sm:flex gap-2"
+                variants={containerVariants}
+              >
                 {skillsData.map((_, index) => (
-                  <button
+                  <motion.button
                     key={index}
                     onClick={() => setActiveCategory(index)}
                     className={`w-3 h-3 rounded-full transition-all ${
@@ -265,57 +557,95 @@ export default function Skills() {
                         ? 'bg-cyan-600 dark:bg-cyan-400 scale-125' 
                         : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
                     }`}
+                    whileHover={{ scale: 1.5 }}
+                    whileTap={{ scale: 0.8 }}
                   />
                 ))}
-              </div>
+              </motion.div>
               
-              <button
+              <motion.button
                 onClick={() => setActiveCategory(prev => prev < skillsData.length - 1 ? prev + 1 : 0)}
-                className="flex items-center gap-2 px-4 py-3 rounded-lg bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-all duration-300 text-gray-700 dark:text-gray-200 font-medium active:scale-95 text-sm sm:text-base hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-600"
+                whileHover={{ scale: 1.05, x: isRTL ? -5 : 5 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center gap-2 px-4 py-3 rounded-lg bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-all duration-300 text-gray-700 dark:text-gray-200 font-medium text-sm sm:text-base hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-600"
               >
                 {!isRTL && (
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <motion.svg 
+                    className="w-4 h-4 sm:w-5 sm:h-5" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                    whileHover={{ x: 3 }}
+                  >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
+                  </motion.svg>
                 )}
                 {t('skills.next')}
                 {isRTL && (
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <motion.svg 
+                    className="w-4 h-4 sm:w-5 sm:h-5" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                    whileHover={{ x: -3 }}
+                  >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
+                  </motion.svg>
                 )}
-              </button>
-            </div>
-          </div>
-        </div>
+              </motion.button>
+            </motion.div>
+          </motion.div>
+        </motion.div>
 
         {/* Stats Section */}
-        <div className="mt-8 sm:mt-12 lg:mt-16 grid grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
-          <div className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg dark:shadow-gray-900/50 p-4 sm:p-6 text-center hover:shadow-xl transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
-            <div className="text-2xl sm:text-3xl font-bold text-cyan-600 dark:text-cyan-400 mb-1 sm:mb-2">{skillsData.length}</div>
-            <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">{t('skills.stats.categories')}</div>
-          </div>
-          <div className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg dark:shadow-gray-900/50 p-4 sm:p-6 text-center hover:shadow-xl transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
-            <div className="text-2xl sm:text-3xl font-bold text-cyan-600 dark:text-cyan-400 mb-1 sm:mb-2">
-              {skillsData.reduce((total, category) => total + category.skills.length, 0)}
-            </div>
-            <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">{t('skills.stats.totalSkills')}</div>
-          </div>
-          <div className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg dark:shadow-gray-900/50 p-4 sm:p-6 text-center hover:shadow-xl transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
-            <div className="text-2xl sm:text-3xl font-bold text-green-600 dark:text-green-400 mb-1 sm:mb-2">2+</div>
-            <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">{t('skills.stats.yearsExp')}</div>
-          </div>
-        </div>
+        <motion.div 
+          className="mt-8 sm:mt-12 lg:mt-16 grid grid-cols-3 gap-3 sm:gap-4 lg:gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
+          {[
+            { value: skillsData.length, label: t('skills.stats.categories'), color: 'cyan' },
+            { value: skillsData.reduce((total, category) => total + category.skills.length, 0), label: t('skills.stats.totalSkills'), color: 'cyan' },
+            { value: '2+', label: t('skills.stats.yearsExp'), color: 'green' }
+          ].map((stat, index) => (
+            <motion.div
+              key={index}
+              variants={statsVariants}
+              whileHover="hover"
+              className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg dark:shadow-gray-900/50 p-4 sm:p-6 text-center hover:shadow-xl transition-shadow duration-300 border border-gray-200 dark:border-gray-700"
+            >
+              <motion.div 
+                className={`text-2xl sm:text-3xl font-bold text-${stat.color}-600 dark:text-${stat.color}-400 mb-1 sm:mb-2`}
+                animate={pulseAnimation}
+              >
+                {stat.value}
+              </motion.div>
+              <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">{stat.label}</div>
+            </motion.div>
+          ))}
+        </motion.div>
 
         {/* Mobile Hint (visible only on mobile) */}
-        <div className="lg:hidden text-center mt-6">
+        <motion.div 
+          className="lg:hidden text-center mt-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1 }}
+        >
           <p className="text-xs text-gray-500 dark:text-gray-400 flex items-center justify-center gap-1">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <motion.svg 
+              className="w-4 h-4" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+              animate={floatingAnimation}
+            >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
-            </svg>
+            </motion.svg>
             {t('skills.mobileHint')}
           </p>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

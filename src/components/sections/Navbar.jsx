@@ -6,9 +6,8 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import logo from "../../assets/loog.png";
-import i18n from "../../context/i18n"
-;import { motion } from 'framer-motion';
-
+import i18n from "../../context/i18n";
+import { motion } from 'framer-motion';
 
 // Configuration
 const NAV_CONFIG = {
@@ -26,11 +25,6 @@ const NAV_CONFIG = {
   ],
   socialLinks: [
     { 
-      href: "https://github.com", 
-      icon: Github, 
-      label: "GitHub"
-    },
-    { 
       href: "https://linkedin.com", 
       icon: Linkedin, 
       label: "LinkedIn"
@@ -39,7 +33,7 @@ const NAV_CONFIG = {
 };
 
 const PortfolioNavbar = () => {
-  const { t, i18n: i18nInstance } = useTranslation(); // Utiliser l'instance de i18n du hook
+  const { t, i18n: i18nInstance } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeItem, setActiveItem] = useState('home');
@@ -51,7 +45,7 @@ const PortfolioNavbar = () => {
   const navRef = useRef(null);
   const dropdownRef = useRef(null);
   const mobileMenuRef = useRef(null);
-  
+  const mobileMenuButtonRef = useRef(null);
 
   // Check if mobile on mount and resize
   useEffect(() => {
@@ -64,28 +58,38 @@ const PortfolioNavbar = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Close dropdown when clicking outside
+  // Close dropdown and mobile menu when clicking outside - CORRIGÉ
   useEffect(() => {
     const handleClickOutside = (event) => {
+      // Fermer le dropdown de langue
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setShowLanguageDropdown(false);
       }
-      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target) && 
-          !event.target.closest('button[aria-label="Menu"]')) {
+
+      // Fermer le menu mobile si on clique en dehors
+      if (isOpen && 
+          mobileMenuRef.current && 
+          !mobileMenuRef.current.contains(event.target) &&
+          mobileMenuButtonRef.current && 
+          !mobileMenuButtonRef.current.contains(event.target)) {
         setIsOpen(false);
       }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
     document.addEventListener('touchstart', handleClickOutside);
+    
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleClickOutside);
     };
-  }, []);
+  }, [isOpen]);
 
   // Scroll to section
   const scrollToSection = useCallback((sectionId) => {
+    // Correction de la faute de frappe 'hgome' vers 'home'
+    if (sectionId === 'hgome') sectionId = 'home';
+    
     const element = document.getElementById(sectionId);
     if (!element) return;
 
@@ -150,9 +154,9 @@ const PortfolioNavbar = () => {
     localStorage.setItem('portfolio-dark-mode', JSON.stringify(isDarkMode));
   }, [isDarkMode]);
 
-  // Language change - CORRECTION ICI
+  // Language change
   const changeLanguage = (lng) => {
-    i18nInstance.changeLanguage(lng); // Utiliser i18nInstance au lieu de i18n
+    i18nInstance.changeLanguage(lng);
     localStorage.setItem('portfolio-language', lng);
     document.documentElement.dir = lng === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = lng;
@@ -169,11 +173,24 @@ const PortfolioNavbar = () => {
     return () => window.removeEventListener('orientationchange', handleOrientationChange);
   }, [isOpen]);
 
+  // Fermer le menu mobile quand on redimensionne au-dessus de 1024px
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024 && isOpen) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isOpen]);
+
   // MenuItem component
   const MenuItem = ({ item, isMobile = false }) => {
     const IconComponent = item.icon;
     const isActive = activeItem === item.id;
-    const isRTL = i18nInstance.language === 'ar'; // Utiliser i18nInstance
+    const isRTL = i18nInstance.language === 'ar';
+
     if (isMobile) {
       return (
         <li className="w-full">
@@ -235,7 +252,7 @@ const PortfolioNavbar = () => {
     );
   };
 
-  const currentLanguage = i18nInstance.language; // Utiliser i18nInstance
+  const currentLanguage = i18nInstance.language;
   const isRTL = currentLanguage === 'ar';
   const currentLanguageObj = NAV_CONFIG.languages.find(lang => lang.code === currentLanguage);
 
@@ -244,34 +261,35 @@ const PortfolioNavbar = () => {
       <nav 
         ref={navRef}
         className={`
-          fixed w-full  top-0 z-50 transition-all duration-500 ease-out 
+          fixed w-full top-0 z-50 transition-all duration-500 ease-out 
           ${scrolled 
-            ? "bg-transparent dark:bg-transparent  backdrop-blur-xl shadow-xl shadow-gray-200/50 dark:shadow-black/30 border-b border-gray-100/50 dark:border-gray-800/50" 
-            : "bg-transparent dark:bg-transparent  backdrop-blur-md"
+            ? "bg-transparent dark:bg-transparent backdrop-blur-xl shadow-xl shadow-gray-200/50 dark:shadow-black/30 border-b border-gray-100/50 dark:border-gray-800/50" 
+            : "bg-transparent dark:bg-transparent backdrop-blur-md"
           }
           h-16 lg:h-20
         `}
         dir={isRTL ? 'rtl' : 'ltr'}
       >
-         <motion.div 
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 1}}iv 
- className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+        <motion.div 
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1 }}
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full"
+        >
           <div className="flex items-center justify-between h-full">
 
             {/* Logo */}
             <div
-              className={`${isMobile ? "" :  "flex items-center group cursor-pointer -ml-72"}`}
+              className={`${isMobile ? "" : "flex items-center group cursor-pointer -ml-72"}`}
               onMouseEnter={() => setIsHoveringLogo(true)}
               onMouseLeave={() => setIsHoveringLogo(false)}
-              onClick={() => scrollToSection('hgome')}
+              onClick={() => scrollToSection('home')} // Correction de 'hgome' vers 'home'
             >
               <div className="relative">
                 <img 
                   src={logo} 
                   alt="Logo" 
-                  className={`h-24 lg:h-36  w-auto transition-all duration-500   ${
+                  className={`h-24 lg:h-36 w-auto transition-all duration-500 ${
                     isHoveringLogo ? 'scale-110 rotate-3' : 'scale-100 rotate-0'
                   }`}
                 />
@@ -294,8 +312,8 @@ const PortfolioNavbar = () => {
             </div>
 
             {/* Desktop Right Side Menu */}
-            <div className="hidden lg:flex items-center space-x-4 ">
-              <div className=" items-center flex ml-72 -mr-[200px]  ">
+            <div className="hidden lg:flex items-center space-x-4">
+              <div className="items-center flex ml-72 -mr-[200px]">
 
                 {/* Language Selector */}
                 <div className="relative" ref={dropdownRef}>
@@ -304,13 +322,13 @@ const PortfolioNavbar = () => {
                     className="
                       flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium 
                       bg-gray-50 dark:bg-gradient-to-r from-cyan-500 to-cyan-600 text-gray-700 dark:text-gray-200
-                      hover:bg-white dark:hover:bg-gray-700/90    dark:   border border-cyan-400/30
+                      hover:bg-white dark:hover:bg-gray-700/90 border border-cyan-400/30
                       hover:shadow-md transition-all duration-300 hover:scale-105 backdrop-blur-sm
                       min-h-[44px] min-w-[44px] justify-center
                     "
                     aria-label="Select language"
                   >
-                    <Globe size={16} className="text-cyan-500 dark:text-white " />
+                    <Globe size={16} className="text-cyan-500 dark:text-white" />
                     <span className="font-semibold hidden sm:block">{currentLanguage.toUpperCase()}</span>
                     <ChevronDown 
                       size={14} 
@@ -357,8 +375,7 @@ const PortfolioNavbar = () => {
                     onClick={() => setIsDarkMode(!isDarkMode)}
                     className="
                       p-3 rounded-xl bg-gray-50 dark:bg-gradient-to-r from-cyan-500 to-cyan-600
-                      text-gray-600 dark:text-white hover:text-amber-500                       border border-cyan-400/30 dark:hover:text-amber-400
-                       dark:
+                      text-gray-600 dark:text-white hover:text-amber-500 border border-cyan-400/30 dark:hover:text-amber-400
                       hover:bg-white dark:hover:bg-gray-700/90 hover:shadow-md
                       transition-all duration-300 hover:scale-110 backdrop-blur-sm
                       min-h-[44px] min-w-[44px] flex items-center justify-center
@@ -411,6 +428,7 @@ const PortfolioNavbar = () => {
               </button>
 
               <button
+                ref={mobileMenuButtonRef}
                 onClick={() => setIsOpen(!isOpen)}
                 className="
                   p-3 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 
@@ -437,7 +455,7 @@ const PortfolioNavbar = () => {
           className={`
             lg:hidden transition-all duration-500 ease-in-out overflow-hidden
             ${isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}
-            bg-white dark:bg-gray-900/98 backdrop-blur-xl border-t border-gray-100/50 dark:border-gray-800/50
+            bg-white dark:bg-[#121212] backdrop-blur-xl border-t border-gray-100/50 dark:border-gray-800/50
             shadow-2xl absolute top-full left-0 right-0
           `}
           style={{
@@ -457,7 +475,7 @@ const PortfolioNavbar = () => {
               <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                 Select Language
               </label>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 gap-2">
                 {NAV_CONFIG.languages.map((lang) => (
                   <button
                     key={lang.code}
