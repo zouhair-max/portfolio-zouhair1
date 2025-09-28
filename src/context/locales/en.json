@@ -1,0 +1,293 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "portfolio": "Portfolio",
+    "skills": "Skills",
+    "blog": "Blog",
+    "contact": "Contact",
+    "downloadCV": "Download CV",
+    "toggleTheme": "Toggle theme",
+    "menu": "Menu",
+    "language": "Language"
+  },
+  "home": {
+    "greeting": "Hello, I'm",
+    "name": "zouhair boudeir",
+    "title": "Full Stack Developer",
+    "description": "Passionate developer specializing in modern web technologies. I create digital experiences that are fast, accessible, and user-friendly. Currently focused on React ecosystem and cloud technologies.",
+    "stats": {
+      "experience": {
+        "value": "2+",
+        "label": "Month Experience"
+      },
+      "projects": {
+        "value": "4+",
+        "label": "Projects Completed"
+      },
+      "location": {
+        "value": "Remote",
+        "label": "Location"
+      }
+    },
+    "downloadCV": "Download CV",
+    "imageAlt": "Profile picture of zouhair boudeir"
+  },"about": {
+    "title": "About",
+    "me": "Me",
+    "imageAlt": "Profile picture",
+    "stats": {
+      "yearsExperience": "Month Experience",
+      "projectsCompleted": "Projects Completed",
+      "basedIn": "Based in",
+      "codingTime": "Coding Time",
+      "morocco": "Morocco"
+    },
+    "introduction": {
+      "title": "Hi there! I'm a passionate developer",
+      "description1": "I'm a full-stack developer with a love for creating beautiful, functional, and user-centered digital experiences. With over 2 Month of experience in web development, I specialize in React, Node.js, and modern web technologies.",
+      "description2": "When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or enjoying a good cup of coffee while brainstorming my next creative project."
+    },
+    "skills": {
+      "title": "Technologies I work with:",
+      "reactNextjs": "React & Next.js",
+      "typescript": "TypeScript",
+      "nodejs": "Node.js",
+      "python": "Python",
+      "uiuxDesign": "UI/UX Design",
+      "mobileDevelopment": "Mobile Development",
+      "php": "php",
+      "laravel": "Laravel",
+      "mysql": "Mysql",
+      "mongodb": "MongoDB"
+    }
+  },"portfolio": {
+    "title": "My Portfolio",
+    "subtitle": "Discover my web and mobile projects where innovation meets user experience",
+    "webApp": "Web App",
+    "mobileApp": "Mobile App",
+    "webApplication": "Web Application",
+    "mobileApplication": "Mobile Application",
+    "technologiesUsed": "Technologies used",
+    "liveDemo": "Live Demo",
+    "sourceCode": "Source Code",
+    "cta": {
+      "text": "Interested in my work? Feel free to contact me!",
+      "button": "Contact Me"
+    },
+    "projects": {
+      "choufrap": {
+        "title": "Chouf Rap",
+        "description": "A music platform dedicated to rap, allowing artist discovery and music content sharing. This application offers an immersive experience with advanced streaming and community features."
+      },
+      "qustainnaire": {
+        "title": "Qustainnaire",
+        "description": "Innovative web application for creating and managing interactive questionnaires with real-time analysis. Intuitive interface and detailed dashboards to track performance."
+      },
+      "khayrat": {
+        "title": "Khayrat",
+        "description": "Charity mobile application facilitating donations and tracking of charitable actions. Secure and transparent for an optimal donation experience."
+      },
+      "leafypaws": {
+        "title": "Leafy Paws",
+        "description": "Mobile application connecting pet owners with care and veterinary services. Integrated geolocation and appointment system."
+      }
+    }
+  },"skills": {
+    "title": "My Skills & Expertise",
+    "subtitle": "Technical and personal skills developed throughout my professional journey",
+    "categoriesTitle": "Categories",
+    "previous": "Previous",
+    "next": "Next",
+    "mobileHint": "Use dropdown or buttons to navigate categories",
+    "stats": {
+      "categories": "Categories",
+      "totalSkills": "Total Skills",
+      "yearsExp": "Month Exp"
+    },
+    "categories": {
+      "programming": "Programming Languages",
+      "web": "Web Development",
+      "backend": "Backend Development",
+      "databases": "Databases",
+      "versionControl": "Version Control",
+      "softSkills": "Soft Skills",
+      "tools": "Tools & IDEs"
+    },
+    "programming": {
+      "js": "JavaScript → Web & Frontend development",
+      "python": "Python → General purpose, backend, data",
+      "php": "PHP → Backend web development"
+    },
+    "web": {
+      "frontend": "Frontend: HTML, CSS, JavaScript",
+      "frameworks": "Frameworks / Libraries: React, Vuer ",
+      "styling": "Styling: Tailwind CSS ,Bootstrap"
+    },
+    "backend": {
+      "nodejs": "Node.js",
+      "laravel": "Laravel (PHP)"
+    },
+    "databases": {
+      "relational": "Relational: MySQL, PostgreSQL",
+      "nosql": "NoSQL: MongoDB",
+      "tools": "Tools: phpMyAdmin, MongoDB Compass"
+    },
+    "versionControl": {
+      "git": "Git → commands basic & advanced",
+      "hosting": "GitHub / GitLab"
+    },
+    "softSkills": {
+      "problemSolving": "Problem-solving → ability to identify and solve problems",
+      "communication": "Communication → effective team and client communication",
+      "timeManagement": "Time management → project and deadline control",
+      "adaptability": "Adaptability → learning new technologies",
+      "attentionToDetail": "Attention to detail → clean and organized code"
+    },
+    "tools": {
+      "ides": "IDEs / Code editors: VS Code, PHPStorm, PyCharm",
+      "localEnv": "Local dev environment: XAMPP, WAMP, MAMP, Docker",
+      "documentation": "Documentation: Markdown, Notion"
+    }
+  },
+  
+  "blog": {
+    "title": "My",
+    "highlight": "Blog",
+    "subtitle": "Sharing insights, tutorials, and experiences from my development journey",
+    "showLess": "Show Less",
+    "readMore": "Read More",
+    "summary": "Summary",
+    "categories": {
+      "react": "React",
+      "learning": "Learning",
+      "portfolio": "Portfolio",
+      "career": "Career",
+      "trends": "Trends"
+    },
+    "posts": {
+      "reactHooks": {
+        "title": "Introduction to React Hooks – useState & useEffect",
+        "readTime": "5 min read",
+        "intro": "React Hooks brought a major change in how we write code in React. Before, we had to use class components to handle state or lifecycle methods. But now, thanks to Hooks, everything is easier with function components.",
+        "sections": {
+          "useState": {
+            "title": "useState",
+            "description": "This Hook lets you manage state inside a regular component. For example, a counter:"
+          },
+          "useEffect": {
+            "title": "useEffect",
+            "description": "This Hook lets you handle lifecycle events like componentDidMount and componentDidUpdate. For example, if you want to fetch data from an API when the component mounts:"
+          }
+        },
+        "summary": "useState = state management, useEffect = side effects (fetching data, timers, events…). These are the basics you'll use daily."
+      },
+      "beginnerMistakes": {
+        "title": "Common Mistakes I Made as a Beginner and How I Learned From Them",
+        "readTime": "7 min read",
+        "intro": "When I started programming, I made a lot of mistakes that taught me valuable lessons.",
+        "sections": {
+          "mistake1": {
+            "title": "Mistake 1: Memorizing code without understanding it",
+            "description": "Solution: Focus on understanding and practice by building small projects."
+          },
+          "mistake2": {
+            "title": "Mistake 2: Not using Git",
+            "description": "Solution: Learned GitHub – now every project is organized and accessible anywhere."
+          },
+          "mistake3": {
+            "title": "Mistake 3: Switching between languages without focus",
+            "description": "Solution: I decided to focus on JavaScript and Laravel first, then learn other technologies later."
+          }
+        }
+      },
+      "portfolioBuild": {
+        "title": "How I Built My Portfolio Step by Step",
+        "readTime": "6 min read",
+        "intro": "This portfolio is one of the projects I'm proud of because it reflects my work.",
+        "sections": {
+          "step1": {
+            "title": "Step 1: Design",
+            "description": "I used Figma to design the interface, choose colors, and layout."
+          },
+          "step2": {
+            "title": "Step 2: Code",
+            "description": "I used React + Tailwind CSS because they are easy for UI and fast to develop."
+          },
+          "step3": {
+            "title": "Step 3: Content",
+            "description": "I divided the site into pages: About, Skills, Projects, Contact."
+          },
+          "step4": {
+            "title": "Step 4: Improvements",
+            "description": "I added Dark Mode, animations, and responsive design to make it professional."
+          }
+        },
+        "summary": "The portfolio allows anyone to quickly see my work. It's an important showcase for any developer."
+      },
+      "portfolioCV": {
+        "title": "How a Portfolio Can Boost Your CV",
+        "readTime": "4 min read",
+        "intro": "A portfolio isn't just a nice website – it's your tool to get a job or internship.",
+        "sections": {
+          "whatInclude": {
+            "title": "What it should include:",
+            "description": "About: Short introduction about yourself. Skills: Technologies you have mastered. Projects: Your main projects with links. Contact: How people can reach you."
+          },
+          "tips": {
+            "title": "Tips for a strong portfolio:",
+            "description": "Keep it simple and organized. Add screenshots of your projects. Include a 'Download CV' button. Make it responsive (works on phone & PC)."
+          }
+        }
+      },
+      "webTrends": {
+        "title": "Top Web Development Trends in 2025",
+        "readTime": "8 min read",
+        "intro": "The web world changes fast. Here are key trends for 2025 you should know:",
+        "sections": {
+          "ai": {
+            "title": "AI Integration",
+            "description": "Many websites now use artificial intelligence."
+          },
+          "serverless": {
+            "title": "Serverless Architecture",
+            "description": "People are moving to cloud solutions without traditional servers."
+          },
+          "jamstack": {
+            "title": "Jamstack",
+            "description": "Building static websites + APIs is becoming very popular."
+          },
+          "web3": {
+            "title": "Web3",
+            "description": "Using blockchain in web development is gradually emerging."
+          },
+          "performance": {
+            "title": "Performance Optimization",
+            "description": "Focus on speed and user experience."
+          }
+        }
+      }
+    }
+  }
+,"contact": {
+    "title": "Get in Touch",
+    "subtitle": "Ready to bring your ideas to life? Let's start a conversation about your next project.",
+    "contactInfo": "Contact Information",
+    "sendMessage": "Send a Message",
+    "formSubtitle": "Have a project in mind? I'd love to hear about it. Let's create something amazing together.",
+    "fullName": "Full Name",
+    "emailAddress": "Email Address",
+    "subject": "Subject",
+    "message": "Message",
+    "yourName": "Your name",
+    "yourEmail": "your.email@example.com",
+    "whatsThisAbout": "What's this about?",
+    "tellAboutProject": "Tell me about your project...",
+    "sendButton": "Send Message",
+    "sending": "Sending...",
+    "callToAction": "Don't hesitate to reach out. I'll reply as soon as possible and we can start creating something extraordinary together.",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone",
+    "locationLabel": "Location"
+  }
+}
