@@ -542,6 +542,7 @@ const PortfolioNavbar = () => {
               <Download size={20} />
               <span>Download CV</span>
             </button>
+            <h1 className="mt-10 h-9"></h1>
           </div>
         </div>
       </nav>
