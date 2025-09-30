@@ -449,11 +449,11 @@ export default function App() {
           <div className="relative z-10">
             <PortfolioNavbar />
             
-            <section id="home" className="min-h-screen relative dark:bg-[#121212]">
+            <section id="home" className="min-h-screen  relative dark:bg-[#121212]">
               <Home />
             </section>
             
-            <section id="about" className="min-h-screen relative dark:bg-[#121212]">
+            <section id="about" className="min-h-screen relative  dark:bg-[#121212]">
               <About />
             </section>
             

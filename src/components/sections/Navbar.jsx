@@ -25,7 +25,7 @@ const NAV_CONFIG = {
   ],
   socialLinks: [
     { 
-      href: "https://linkedin.com", 
+      href: "https://www.linkedin.com/in/boudeir-zouhair2005", 
       icon: Linkedin, 
       label: "LinkedIn"
     }
@@ -261,12 +261,12 @@ const PortfolioNavbar = () => {
       <nav 
         ref={navRef}
         className={`
-          fixed w-full top-0 z-50 transition-all duration-500 ease-out 
+          fixed w-full top-0 z-50 transition-all duration-500 ease-out   
           ${scrolled 
             ? "bg-transparent dark:bg-transparent backdrop-blur-xl shadow-xl shadow-gray-200/50 dark:shadow-black/30 border-b border-gray-100/50 dark:border-gray-800/50" 
             : "bg-transparent dark:bg-transparent backdrop-blur-md"
           }
-          h-16 lg:h-20
+          md:h-16 xl:h-20
         `}
         dir={isRTL ? 'rtl' : 'ltr'}
       >
@@ -280,7 +280,7 @@ const PortfolioNavbar = () => {
 
             {/* Logo */}
             <div
-              className={`${isMobile ? "" : "flex items-center group cursor-pointer -ml-72"}`}
+              className={`${isMobile ? "" : "flex items-center group cursor-pointer  md:-ml-14 xl:-ml-72 xxl:-ml-72"}`}
               onMouseEnter={() => setIsHoveringLogo(true)}
               onMouseLeave={() => setIsHoveringLogo(false)}
               onClick={() => scrollToSection('home')} // Correction de 'hgome' vers 'home'
@@ -304,7 +304,7 @@ const PortfolioNavbar = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:block">
-              <ul className={`flex ${isRTL ? 'space-x-reverse space-x-2' : 'space-x-2'} xl:space-x-3`}>
+              <ul className={`flex ${isRTL ? 'space-x-reverse space-x-2' : 'space-x-0'} md:space-x-0 xl:space-x-3'`}>
                 {NAV_CONFIG.menuItems.map((item) => (
                   <MenuItem key={item.id} item={item} />
                 ))}
@@ -313,7 +313,7 @@ const PortfolioNavbar = () => {
 
             {/* Desktop Right Side Menu */}
             <div className="hidden lg:flex items-center space-x-4">
-              <div className="items-center flex ml-72 -mr-[200px]">
+              <div className="items-center flex  md:mr-[10px] xl:ml-80 xl:-mr-[200px] ">
 
                 {/* Language Selector */}
                 <div className="relative" ref={dropdownRef}>
@@ -453,7 +453,7 @@ const PortfolioNavbar = () => {
         <div 
           ref={mobileMenuRef}
           className={`
-            lg:hidden transition-all duration-500 ease-in-out overflow-hidden
+            lg:hidden transition-all duration-500 overflow-y-auto ease-in-out overflow-hidden
             ${isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}
             bg-white dark:bg-[#121212] backdrop-blur-xl border-t border-gray-100/50 dark:border-gray-800/50
             shadow-2xl absolute top-full left-0 right-0
@@ -462,7 +462,7 @@ const PortfolioNavbar = () => {
             maxHeight: isOpen ? 'calc(100vh - 64px)' : '0px'
           }}
         >
-          <div className="px-4 py-4 space-y-2 max-h-[60vh] overflow-y-auto">
+          <div className="px-4 py-4 space-y-2 max-h-[100vh] overflow-y-auto">
             {NAV_CONFIG.menuItems.map((item) => (
               <MenuItem key={item.id} item={item} isMobile={true} />
             ))}
