@@ -456,7 +456,7 @@ const PortfolioNavbar = () => {
             lg:hidden transition-all duration-500 overflow-y-auto ease-in-out overflow-hidden
             ${isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}
             bg-white dark:bg-[#121212] backdrop-blur-xl border-t border-gray-100/50 dark:border-gray-800/50
-            shadow-2xl absolute top-full left-0 right-0
+            shadow-2xl absolute top-full left-0 right-0 pb-20
           `}
           style={{
             maxHeight: isOpen ? 'calc(100vh - 64px)' : '0px'
@@ -529,7 +529,7 @@ const PortfolioNavbar = () => {
                 text-white p-4 rounded-xl font-semibold text-base
                 hover:from-cyan-600 hover:to-cyan-700 active:scale-95
                 transition-all duration-300 hover:shadow-lg
-                shadow-lg shadow-cyan-500/25 min-h-[52px]
+                shadow-lg shadow-cyan-500/25 min-h-[52px] mb-10
               "
               onClick={() => {
                 const link = document.createElement('a');
@@ -543,7 +543,6 @@ const PortfolioNavbar = () => {
               <span>Download CV</span>
             </button>
           </div>
-            <h1 className="mt-20 h-20"></h1>
         </div>
       </nav>
 
