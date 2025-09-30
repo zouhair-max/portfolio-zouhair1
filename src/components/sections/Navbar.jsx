@@ -529,7 +529,7 @@ const PortfolioNavbar = () => {
                 text-white p-4 rounded-xl font-semibold text-base
                 hover:from-cyan-600 hover:to-cyan-700 active:scale-95
                 transition-all duration-300 hover:shadow-lg
-                shadow-lg shadow-cyan-500/25 min-h-[52px]
+                shadow-lg shadow-cyan-500/25 min-h-[77px]
               "
               onClick={() => {
                 const link = document.createElement('a');
@@ -542,7 +542,6 @@ const PortfolioNavbar = () => {
               <Download size={20} />
               <span>Download CV</span>
             </button>
-            <h1 className="mt-10 h-9"></h1>
           </div>
         </div>
       </nav>
