@@ -456,7 +456,7 @@ const PortfolioNavbar = () => {
             lg:hidden transition-all duration-500 overflow-y-auto ease-in-out overflow-hidden
             ${isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}
             bg-white dark:bg-[#121212] backdrop-blur-xl border-t border-gray-100/50 dark:border-gray-800/50
-            shadow-2xl absolute top-full left-0 right-0 pb-20 pl-3
+            shadow-2xl absolute top-full left-0 right-0 pb-20 pl-6
           `}
           style={{
             maxHeight: isOpen ? 'calc(100vh - 64px)' : '0px'
