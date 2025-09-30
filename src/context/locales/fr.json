@@ -19,14 +19,14 @@
     "stats": {
       "experience": {
         "value": "2+",
-        "label": "Mois d'Expérience"
+        "label": "Annees d'Expérience"
       },
       "projects": {
         "value": "4+",
         "label": "Projets Complétés"
       },
       "location": {
-        "value": "Distanciel",
+        "value": "Maroc",
         "label": "Localisation"
       }
     },
@@ -38,7 +38,7 @@
     "me": "Moi",
     "imageAlt": "Photo de profil",
     "stats": {
-      "yearsExperience": "Mois d'expérience",
+      "yearsExperience": "Annees d'expérience",
       "projectsCompleted": "Projets réalisés",
       "basedIn": "Localisation",
       "codingTime": "Temps de codage",
@@ -46,7 +46,7 @@
     },
     "introduction": {
       "title": "Bonjour ! Je suis un développeur passionné",
-      "description1": "Je suis un développeur full-stack passionné par la création d'expériences numériques belles, fonctionnelles et centrées sur l'utilisateur. Avec plus de 2 mois d'expérience en développement web, je me spécialise dans React, Node.js et les technologies web modernes.",
+      "description1": "Je suis un développeur full-stack passionné par la création d'expériences numériques belles, fonctionnelles et centrées sur l'utilisateur. Avec plus de 2 Annees d'expérience en développement web, je me spécialise dans React, Node.js et les technologies web modernes.",
       "description2": "Quand je ne code pas, vous me trouverez en train d'explorer de nouvelles technologies, de contribuer à des projets open-source, ou de savourer une bonne tasse de café en planifiant mon prochain projet créatif."
     },
     "skills": {
@@ -105,7 +105,7 @@
     "stats": {
       "categories": "Catégories",
       "totalSkills": "Total des Compétences",
-      "yearsExp": "mois d'Expérience"
+      "yearsExp": "Annees d'Expérience"
     },
     "categories": {
       "programming": "Langages de Programmation",

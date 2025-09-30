@@ -93,8 +93,7 @@ export default function Skills() {
       skills: [
         t('skills.backend.nodejs'),
         t('skills.backend.laravel'),
-        t('skills.backend.django'),
-        t('skills.backend.rails')
+     
       ],
       icon: icons.backend
     },
